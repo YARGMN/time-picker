@@ -41,12 +41,22 @@ export class AppComponent implements OnInit {
   async send(dateTimeValue: string) {
 
     const dateTime = new Date(dateTimeValue);
-    const dateTimeStr = dateTime.toISOString().replaceAll("T", " ").replaceAll("Z", "").replace(".000", "")
-    const body  = {
-      'newValue': dateTimeStr // convert dateTime to yyyy-mm-dd hh:mm:ss format 
+    let dateTimeStr!: string;
+
+    try {
+      dateTimeStr = dateTime.toISOString().replaceAll("T", " ").replaceAll("Z", "").replace(".000", "")
+    } catch(error) {
+      console.error(error);
+      
     }
     
-    await this.http.put(this.httpUpdateDateTime.replace("{ID}", this.timeID.toString()), body).toPromise();
+    const body  = {
+      'newValue': dateTimeStr
+    }
+    if(dateTimeStr !== undefined) {
+      await this.http.put(this.httpUpdateDateTime.replace("{ID}", this.timeID.toString()), body).toPromise();
+      console.log(body.newValue);
+    }
     
   }
 }
