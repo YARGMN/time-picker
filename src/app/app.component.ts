@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 
@@ -7,37 +7,46 @@ import { Observable, map } from 'rxjs';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+  httpUpdateDateTime: string = "http://bim.students.ecole-hexagone.com:9076/api/v1/endpoint/{ID}/update";
+
+  contextUrl: string = "http://bim.students.ecole-hexagone.com:9076/api/v1/context/list";
+  equipmentGroupUrl: string = "http://bim.students.ecole-hexagone.com:9076/api/v1/equipementsGroup/"
+  controlEndpointUrl: string = "http://bim.students.ecole-hexagone.com:9076/api/v1/equipement/{ID Panneau systme [270545]}/control_endpoint_list"
+
+  contextList: any;
+  equipmentGroupList: any;
+  controlEndpointList: any;
+
+  timeID!: number;
   
   constructor(private http: HttpClient) {}
 
+  async ngOnInit() {
+    this.contextList = await this.http.get(this.contextUrl).toPromise();
+    const equipmentID = this.contextList.find((context: any) => context.name === "Equipement").dynamicId;
+
+    this.equipmentGroupList = await this.http.get(this.equipmentGroupUrl + equipmentID + "/tree").toPromise();
+    const panneauSystemID = this.equipmentGroupList.children[1].children[0].children[0].dynamicId;
+
+    this.controlEndpointList = await this.http.get(this.controlEndpointUrl.replace("{ID Panneau systme [270545]}", panneauSystemID)).toPromise();
+
+    this.timeID = this.controlEndpointList[0].endpoints[0].dynamicId;
+    console.log(this.timeID);
+    
+  }
+  
   title = 'time-picker';
 
-  contextList: any;
-  
-  httpUpdateDateTime: string = "http://bim.students.ecole-hexagone.com:9076/api/v1/endpoint/88210896/update";
-  contextUrl: string = "http://bim.students.ecole-hexagone.com:9076/api/v1/context/list";
-
-  optional!: String;
-
-  getContext(): Observable<any> {
-    return this.http.get(this.contextUrl).pipe(map(res => {
-      console.log(res);
-      this.optional = res.toString();
-      return res;
-    })); 
-  }
-
-  send(dateTimeValue: string) {
+  async send(dateTimeValue: string) {
 
     const dateTime = new Date(dateTimeValue);
-
-    const string = dateTime.getFullYear + "-" + dateTime.getMonth + "-" + dateTime.getDay + " " + dateTime.getHours + ":" + dateTime.getMinutes + ":" + dateTime.getSeconds + ":" + dateTime.getMilliseconds
-
-    const finalJson  = {
-      'newValue': string
+    const dateTimeStr = dateTime.toISOString().replaceAll("T", " ").replaceAll("Z", "").replace(".000", "")
+    const body  = {
+      'newValue': dateTimeStr // convert dateTime to yyyy-mm-dd hh:mm:ss format 
     }
-    this.http.put(this.httpUpdateDateTime, finalJson)
+    
+    await this.http.put(this.httpUpdateDateTime.replace("{ID}", this.timeID.toString()), body).toPromise();
     
   }
 }
