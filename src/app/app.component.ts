@@ -32,12 +32,9 @@ export class AppComponent implements OnInit {
     this.controlEndpointList = await this.http.get(this.controlEndpointUrl.replace("{ID Panneau systme [270545]}", panneauSystemID)).toPromise();
 
     this.timeID = this.controlEndpointList[0].endpoints[0].dynamicId;
-    console.log(this.timeID);
     
   }
   
-  title = 'time-picker';
-
   async send(dateTimeValue: string) {
 
     const dateTime = new Date(dateTimeValue);
@@ -55,7 +52,6 @@ export class AppComponent implements OnInit {
     }
     if(dateTimeStr !== undefined) {
       await this.http.put(this.httpUpdateDateTime.replace("{ID}", this.timeID.toString()), body).toPromise();
-      console.log(body.newValue);
     }
     
   }
