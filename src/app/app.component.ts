@@ -12,7 +12,7 @@ export class AppComponent implements OnInit {
 
   contextUrl: string = "http://bim.students.ecole-hexagone.com:9076/api/v1/context/list";
   equipmentGroupUrl: string = "http://bim.students.ecole-hexagone.com:9076/api/v1/equipementsGroup/"
-  controlEndpointUrl: string = "http://bim.students.ecole-hexagone.com:9076/api/v1/equipement/{ID Panneau systme [270545]}/control_endpoint_list"
+  controlEndpointUrl: string = "http://bim.students.ecole-hexagone.com:9076/api/v1/equipement/{ID Panneau_systeme}/control_endpoint_list"
 
   contextList: any;
   equipmentGroupList: any;
@@ -29,7 +29,7 @@ export class AppComponent implements OnInit {
     this.equipmentGroupList = await this.http.get(this.equipmentGroupUrl + equipmentID + "/tree").toPromise();
     const panneauSystemID = this.equipmentGroupList.children[1].children[0].children[0].dynamicId;
 
-    this.controlEndpointList = await this.http.get(this.controlEndpointUrl.replace("{ID Panneau systme [270545]}", panneauSystemID)).toPromise();
+    this.controlEndpointList = await this.http.get(this.controlEndpointUrl.replace("{ID Panneau_systeme}", panneauSystemID)).toPromise();
 
     this.timeID = this.controlEndpointList[0].endpoints[0].dynamicId;
     
