@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "bim-configurator": {
+      "hosting": {
+        "time-picker": [
+          "bim-configurator"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "bim-configurator"
+  }
+}
