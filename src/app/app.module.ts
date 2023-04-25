@@ -9,24 +9,28 @@ import {MatNativeDateModule} from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatIconModule} from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
 import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateModule } from '@angular-material-components/datetime-picker';
 import { AppComponent } from './app.component';
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-// import { DatetimeComponent } from './datetime/datetime.component';
-
 
 @NgModule({
   declarations: [
-    AppComponent,
-    // DatetimeComponent,
-    // DatetimeInputComponent
+    AppComponent
   ],
   imports: [
     FormsModule,
     BrowserModule,
+    MatCheckboxModule,
+    MatRadioModule,
+    MatSelectModule,
     NgxMatTimepickerModule,
     HttpClientModule,
+    MatButtonModule,
     BrowserAnimationsModule,
     MatDatepickerModule,
     MatIconModule,

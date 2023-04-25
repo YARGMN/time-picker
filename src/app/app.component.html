@@ -1,8 +1,7 @@
-<!-- <div class="background"></div> -->
-
+<div class="background"></div>
 <div class="div-general">
     <div class="div-datetime">
-        <p>Turing 22</p>
+        <img height="100" src="../assets/Logo_T22_blanc_et_jaune.png"/>
         <h1 class="date">{{this.dateTime.slice(0,10)}} </h1>
         <h2 class="time">{{this.dateTime.slice(11)}} </h2>
     </div>
@@ -12,12 +11,4 @@
         <input matInput #dateTimeValue type="datetime-local">
         <button (click)="send(dateTimeValue.value)">Valider</button>
     </div>
-</div>
-<div class="test">
-        <input matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date">
-        <mat-datepicker-toggle matSuffix ></mat-datepicker-toggle>
-        <ngx-mat-datetime-picker #picker [showSpinners]="showSpinners" [showSeconds]="showSeconds"
-           [stepHour]="stepHour" [stepMinute]="stepMinute" [stepSecond]="stepSecond"
-           [touchUi]="touchUi" [color]="color" [enableMeridian]="enableMeridian">
-        </ngx-mat-datetime-picker>
 </div>

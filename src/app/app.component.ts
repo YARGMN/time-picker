@@ -1,8 +1,9 @@
-import { AfterContentInit, AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, Input, NgZone, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 import * as moment from 'moment';
 import { ThemePalette } from '@angular/material/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -24,23 +25,8 @@ export class AppComponent implements OnInit, OnChanges {
   dateTime!: any;
 
   panneauSystemeId!: number;
-
-  @ViewChild('picker') picker: any;
-
-  public date: moment.Moment | undefined;
-  public disabled = false;
-  public showSpinners = true;
-  public showSeconds = false;
-  public touchUi = false;
-  public enableMeridian = false;
-  public minDate!: moment.Moment;
-  public maxDate!: moment.Moment;
-  public stepHour = 1;
-  public stepMinute = 1;
-  public stepSecond = 1;
-  public color: ThemePalette = 'primary';
   
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private zone: NgZone) {}
 
   async ngOnInit() {
     this.contextList = await this.http.get(this.contextUrl).toPromise();
@@ -87,6 +73,5 @@ export class AppComponent implements OnInit, OnChanges {
       
     this.dateTime = this.controlEndpointList[0].endpoints[0].currentValue;
     }
-    
   }
 }

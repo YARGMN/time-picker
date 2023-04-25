@@ -1,41 +1,44 @@
 .div-datetime {
-    text-align: center;
-    font-size: 75px;
-    width: auto;
-    line-height: 50px;
-    // border : solid 2px;
-    // border-color: black;
-    filter: brightness(1);
+  text-align: center;
+  font-size: 75px;
+  width: auto;
+  line-height: 50px;
+  filter: brightness(1);
 }
 
 .div-form {
-    text-align: center;
-    font-size: 40px;
-    filter: brightness(100%);
+  text-align: center;
+  font-size: 40px;
+  filter: brightness(100%);
 }
 
 input {
-    width: 175px;
-    height: 25px;
-    text-align: center;
+  width: 175px;
+  height: 25px;
+  text-align: center;
 }
 
 button {
-    height: 30px;
-    text-align: center;
+  height: 30px;
+  text-align: center;
 }
 
 .background {
-    background-image: url('../assets/LASSALLE_DP_PHOTOS_C7_RVB.jpg');
-    background-size: cover;
-    position: fixed;
-    filter: brightness(50%); 
-    top: 0; 
-    left: 0; 
-    min-width: 100%;
-    min-height: 100%;
+  background-image: url("../assets/Pack_presse_22.jpg");
+  background-size: cover;
+  position: fixed;
+  filter: brightness(50%);
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  min-height: 100%;
 }
 
 .div-general {
-    color: aliceblue;
+  overflow: hidden;
+  color: aliceblue;
+}
+
+img {
+    margin-top: 2%;
 }
